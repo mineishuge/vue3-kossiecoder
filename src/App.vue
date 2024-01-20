@@ -12,7 +12,9 @@
       </li>
     </ul>
 </nav>
+<div class="container">
 	<router-view/>
+</div>
 </template>
 
 <script>
