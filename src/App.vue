@@ -1,9 +1,14 @@
 <template>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="/">Kossie Coder</a>
+	<router-link class="navbar-brand" to="/">
+		Kossie Coder
+	</router-link>
+
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/todos">Todos</a>
+        <router-link class="nav-link" to="/todos">
+			Todos
+		</router-link>
       </li>
     </ul>
 </nav>
