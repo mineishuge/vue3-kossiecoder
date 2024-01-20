@@ -4,13 +4,18 @@
             v-for="(todo, index) in todos"
             :key="todo.id"
         >
-            <div class="card-body p-2 d-flex align-items-center">
+            <div 
+                class="card-body p-2 d-flex align-items-center"
+                style="cursor: pointer"
+                @click="moveToPage(todo.id)"
+            >
                 <div class="form-check flex-grow-1">
                     <input
                         class="form-check-input"
                         type="checkbox"
                         :checked="todo.completed"
-                        @change="toggleTodo(index)"
+                        @change="toggleTodo(index, $event)"
+                        @click.stop
                     >
                     <label 
                         class="form-check-label"
@@ -22,7 +27,7 @@
                 <div>
                     <button 
                         class="btn btn-danger btn-sm"
-                        @click="deleteTodo(index)"
+                        @click.stop="deleteTodo(index)"
                     >
                         Delete
                     </button>
@@ -33,6 +38,7 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router';
 export default {
     props: {
         todos: {
@@ -42,17 +48,29 @@ export default {
     },
     emits: ['toggle-todo', 'delete-todo'],
     setup(props, {emit}) {
-        const toggleTodo = (index) => {
-            emit('toggle-todo', index);
+        const router = useRouter();
+        const toggleTodo = (index, event) => {
+            emit('toggle-todo', index, event.target.checked);
         };
 
         const deleteTodo = (index) => {
             emit('delete-todo', index);
         };
 
+        const moveToPage = (todoId) => {
+            // console.log(todoId)
+            router.push({
+                name: 'Todo',
+                params: {
+                    id: todoId
+                }
+            });
+        }
+
         return {
             toggleTodo,
             deleteTodo,
+            moveToPage,
         }
     }
 }
