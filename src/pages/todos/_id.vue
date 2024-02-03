@@ -53,12 +53,14 @@
         :message="toastMessage"
         :type="toastAlertType"
     />
+    <div id="kossie">coder</div>
 </template>
 
 <script>
 import { useRoute } from 'vue-router';
 import axios from 'axios';
-import { ref, computed } from 'vue';
+import { ref, computed, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
+// import { ref, computed, onBeforeMount, onMounted, onBeforeUpdate, onUpdated } from 'vue';
 import _ from 'lodash';
 import Toast from '@/components/Toast.vue';
 
@@ -67,6 +69,32 @@ export default {
         Toast
     },
     setup() {
+        onBeforeMount(() => {
+            console.log(document.querySelector('#kossie'))
+        });
+
+        onMounted(() => {
+            console.log(document.querySelector('#kossie'))
+        });
+
+        onBeforeUpdate(() => {
+            console.log('before update')
+        })
+
+        onUpdated(() => {
+            console.log('updated')
+        })
+
+        onBeforeUnmount(() => {
+            console.log('before unmount')
+        })
+
+        onUnmounted(() => {
+            console.log('unmounted')
+        })
+
+        console.log("hello")
+
         const route = useRoute();
         const todo = ref(null);
         const originalTodo = ref(null);;
