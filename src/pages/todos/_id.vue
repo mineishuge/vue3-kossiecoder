@@ -59,7 +59,7 @@
 <script>
 import { useRoute } from 'vue-router';
 import axios from 'axios';
-import { ref, computed, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
+import { ref, computed, onUnmounted } from 'vue';
 // import { ref, computed, onBeforeMount, onMounted, onBeforeUpdate, onUpdated } from 'vue';
 import _ from 'lodash';
 import Toast from '@/components/Toast.vue';
@@ -69,31 +69,6 @@ export default {
         Toast
     },
     setup() {
-        onBeforeMount(() => {
-            console.log(document.querySelector('#kossie'))
-        });
-
-        onMounted(() => {
-            console.log(document.querySelector('#kossie'))
-        });
-
-        onBeforeUpdate(() => {
-            console.log('before update')
-        })
-
-        onUpdated(() => {
-            console.log('updated')
-        })
-
-        onBeforeUnmount(() => {
-            console.log('before unmount')
-        })
-
-        onUnmounted(() => {
-            console.log('unmounted')
-        })
-
-        console.log("hello")
 
         const route = useRoute();
         const todo = ref(null);
@@ -102,7 +77,14 @@ export default {
         const showToast = ref(false);
         const toastMessage = ref('');
         const toastAlertType = ref('');
+        const timeout = ref(null);
         const todoId = route.params.id
+
+        onUnmounted(() => {
+            console.log('unmounted')
+            clearTimeout(timeout.value);
+        })
+
 
         const getTodo = async () => {
             try {
@@ -133,7 +115,7 @@ export default {
             toastAlertType.value = type;
             showToast.value = true;
 
-            setTimeout(() => {
+            timeout.value = setTimeout(() => {
                 toastMessage.value = '';
                 toastAlertType.value = '';
                 showToast.value = false;
