@@ -53,16 +53,15 @@
         :message="toastMessage"
         :type="toastAlertType"
     />
-    <div id="kossie">coder</div>
 </template>
 
 <script>
 import { useRoute } from 'vue-router';
 import axios from 'axios';
-import { ref, computed, onUnmounted } from 'vue';
-// import { ref, computed, onBeforeMount, onMounted, onBeforeUpdate, onUpdated } from 'vue';
+import { ref, computed } from 'vue';
 import _ from 'lodash';
 import Toast from '@/components/Toast.vue';
+import { useToast } from '@/composables/toast';
 
 export default {
     components: {
@@ -74,18 +73,15 @@ export default {
         const todo = ref(null);
         const originalTodo = ref(null);;
         const loading = ref(true);
-        const showToast = ref(false);
-        const toastMessage = ref('');
-        const toastAlertType = ref('');
-        const timeout = ref(null);
         const todoId = route.params.id
 
-        onUnmounted(() => {
-            console.log('unmounted')
-            clearTimeout(timeout.value);
-        })
-
-
+		const { 
+			showToast,
+			toastMessage,
+			toastAlertType,
+			triggerToast
+		} = useToast();
+        
         const getTodo = async () => {
             try {
                 const res = await axios.get(`http://localhost:3000/todos/${todoId}`);
@@ -110,18 +106,6 @@ export default {
 
         getTodo();
 
-        const triggerToast = (message, type = 'success') => {
-            toastMessage.value = message;
-            toastAlertType.value = type;
-            showToast.value = true;
-
-            timeout.value = setTimeout(() => {
-                toastMessage.value = '';
-                toastAlertType.value = '';
-                showToast.value = false;
-            }, 3000)
-        }
-        
         const onSave = async () => {
             try {
                 const res = await axios.put(`http://localhost:3000/todos/${todoId}`, {
