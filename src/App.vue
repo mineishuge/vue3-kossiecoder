@@ -9,6 +9,9 @@
         <router-link class="nav-link" :to="{name: 'Todos'}">
 			Todos
 		</router-link>
+        <router-link class="nav-link" :to="{name: 'Memo'}">
+			Memo
+		</router-link>
       </li>
     </ul>
 </nav>
