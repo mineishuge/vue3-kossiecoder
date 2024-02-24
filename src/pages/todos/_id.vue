@@ -1,6 +1,6 @@
 <template>
     <h1>To-Do Page</h1>
-	<TodoForm :editType="update"/>
+	<TodoForm :editing="true"/>
 </template>
 
 <script>

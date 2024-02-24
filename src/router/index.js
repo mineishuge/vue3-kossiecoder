@@ -3,7 +3,6 @@ import Home from '../pages/index.vue';
 import Todos from '../pages/todos/index.vue';
 import Todo from '../pages/todos/_id.vue';
 import TodoCreate from '../pages/todos/create/index.vue';
-import Memo from '../pages/memo';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -27,11 +26,6 @@ const router = createRouter({
             path: '/todos/:id',
             name: 'Todo',
             component: Todo
-        },
-        {
-            path: '/todos/memo',
-            name: 'Memo',
-            component: Memo
         }
     ]
 });

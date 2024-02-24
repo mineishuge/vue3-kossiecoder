@@ -1,6 +1,6 @@
 <template>
     <h1>Create Todo</h1>
-	<TodoForm :editType="create"/>
+	<TodoForm :editing="false"/>
 </template>
 
 <script>
