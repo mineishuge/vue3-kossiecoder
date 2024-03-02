@@ -1,5 +1,4 @@
 <template>
-    <h1>To-Do Page</h1>
 	<div>
 		<div>
 			<div class="d-flex justify-content-between mb-3">
@@ -121,10 +120,9 @@ export default {
 			}
 		};
 
-		const deleteTodo = async (index) => {
+		const deleteTodo = async (id) => {
 			// console.log('delete todo')
 			error.value = '';
-			const id = todos.value[index].id;
 			try {
 				await axios.delete('http://localhost:3000/todos/' + id)
 				getTodos(1)
